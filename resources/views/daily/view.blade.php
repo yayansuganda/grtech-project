@@ -28,7 +28,7 @@
               </div>
 
               <div class="card-body">
-                <table class="table table-bordered table-hover">
+                <table id="data-daily" class="table table-bordered table-hover">
                   <thead>
                     <tr>
                         <th>No</th>
@@ -61,19 +61,7 @@
 @push('scripts')
   <script>
     $(document).ready(function(){
-        var oTable = $('#data_table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('table.companies')}}",
-            columns: [
-                        {data: 'DT_RowIndex', name: 'id'},
-                        {data: 'name', name: 'name'},
-                        {data: 'email', name: 'email'},
-                        {data: 'logo_company', name: 'logo_company'},
-                        {data: 'website_company', name: 'website_company'},
-                        {data: 'action', name: 'action', orderable: false}
-                    ]
-        });
+        $('#data-daily').DataTable();
     });
 </script>
 @endpush

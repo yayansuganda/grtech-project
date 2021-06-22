@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
                   'employees' => EmployessController::class]);
 
     Route::get('/daily',[BonusController::class,'index']);
+    Route::get('/table/daily',[BonusController::class,'dataDaily'])->name('table.daily');
 
 
     Route::get('/table/companies',[CompaniesController::class,'datatableCompanies'])->name('table.companies');

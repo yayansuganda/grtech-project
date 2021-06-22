@@ -13,4 +13,11 @@ class BonusController extends Controller
         $result = json_decode($test);
         return view('daily.view',compact('result'));
     }
+
+    // public function dateDa() {
+    //     $test = Http::get('https://zenquotes.io/api/quotes');
+
+    //     $result = json_decode($test);
+    //     return view('daily.view',compact('result'));
+    // }
 }
