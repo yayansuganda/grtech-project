@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\SendEmail;
 use App\Models\Companies;
 use App\Models\Employees;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,8 @@ class EmployessController extends Controller
 {
     public function index()
     {
-        return view('employees.view');
+        $company_search = Companies::pluck('name','id');
+        return view('employees.view',compact('company_search'));
     }
 
 
@@ -78,9 +80,43 @@ class EmployessController extends Controller
 
     public function datatableEmployees(Request $request)
     {
-        $model =  Employees::select('employees.*')->join('companies','companies.id','=','employees.company_id')->get();
+        $first_name = empty($request->first_name) ? '' : $request->first_name;
+        $last_name = empty($request->last_name) ? '' : $request->last_name;
+        $email = empty($request->email) ? '' : $request->email;
+        $company = empty($request->company) ? '' : $request->company;
+        $date_range = empty($request->date_range) ? '' : $request->date_range;
+        $str = explode(" - ",$date_range);
+        $date1 = Carbon::parse($str[0])->format('Y-m-d');
+        $date2 = Carbon::parse($str[1])->format('Y-m-d');
+
+        // dd($first_name, $last_name, $email, $company, $date_range);
+        $model =  Employees::select('employees.*')->join('companies','companies.id','=','employees.company_id');
 
         return DataTables::of($model)
+            ->filter(function($query) use ($first_name, $last_name, $email, $company, $date1, $date2){
+                if(!empty($first_name)) {
+                    $query->where('employees.first_name','like',"%$first_name%");
+                }
+
+                if(!empty($last_name)) {
+                    $query->where('employees.last_name','like',"%$last_name%");
+                }
+
+                if(!empty($email)) {
+                    $query->where('employees.email','like',"%$email%");
+                }
+
+                if(!empty($company)) {
+                    $query->where('employees.company_id','like',"%$company%");
+                }
+
+                if($date1 != $date2) {
+                    $query->whereBetween('employees.created_at', array($date1, $date2));
+                }
+
+
+
+            })
             ->addColumn('company_detail',function($model){
                 return '<a href="'.route('companies.show',$model->company_id).'" title="Detail Companies" class ="btn-show">'.$model->getCompanies->name.'</a>';
             })
@@ -94,6 +130,6 @@ class EmployessController extends Controller
             })
             ->addIndexColumn()
             ->rawColumns(['action','full_name','company_detail','name_company'])
-            ->make(true);
+            ->make();
     }
 }
