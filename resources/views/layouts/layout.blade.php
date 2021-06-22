@@ -96,6 +96,15 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{ url('daily') }}" class="nav-link  {{ Request::is('daily') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Daily Quotes
+              </p>
+            </a>
+          </li>
+
 
         </ul>
       </nav>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BonusController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\EmployessController;
 use App\Http\Controllers\PegawaiController;
@@ -25,6 +26,9 @@ Route::get('/logout',[AuthController::class,'logout']);
 Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::resources(['companies' => CompaniesController::class,
                   'employees' => EmployessController::class]);
+
+    Route::get('/daily',[BonusController::class,'index']);
+
 
     Route::get('/table/companies',[CompaniesController::class,'datatableCompanies'])->name('table.companies');
     Route::get('/table/employees',[EmployessController::class,'datatableEmployees'])->name('table.employees');
