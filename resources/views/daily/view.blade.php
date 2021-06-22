@@ -38,7 +38,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                      @php $no = 0; @endphp
+                      @php $no = 1; @endphp
                       @foreach ($result as $key=>$item)
                           <tr>
                               <td>{{ $no++ }}</td>
