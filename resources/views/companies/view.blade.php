@@ -22,7 +22,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="{{ route('companies.create') }}" class="btn bg-gradient-primary modal-show" title="Add New Companies" data-toggle="modal">
+                <a href="{{ route('compani.create') }}" class="btn bg-gradient-primary modal-show" title="Add New Companies" data-toggle="modal">
                   Add New Companies
                 </a>
               </div>
@@ -57,7 +57,7 @@
         var oTable = $('#data_table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('table.companies')}}",
+            ajax: "{{ route('table.compani')}}",
             columns: [
                         {data: 'DT_RowIndex', name: 'id'},
                         {data: 'name', name: 'name'},

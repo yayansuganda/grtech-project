@@ -22,11 +22,8 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                {{-- <a href="{{ route('companies.create') }}" class="btn bg-gradient-primary modal-show" title="Add New Companies" data-toggle="modal">
-                  Add New Companies --}}
-                </a>
+                    <button type="submit" id="refresh" class="btn btn-outline-info ">Refresh Daily</button>
               </div>
-
               <div class="card-body">
                 <table id="data-daily" class="table table-bordered table-hover">
                   <thead>
@@ -38,15 +35,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                      @php $no = 1; @endphp
-                      @foreach ($result as $key=>$item)
-                          <tr>
-                              <td>{{ $no++ }}</td>
-                              <td>{!! $item->q !!}</td>
-                              <td>{!! $item->a !!}</td>
-                              <td>{!! $item->h !!}</td>
-                          </tr>
-                      @endforeach
 
                   </tbody>
                 </table>
@@ -61,7 +49,24 @@
 @push('scripts')
   <script>
     $(document).ready(function(){
-        $('#data-daily').DataTable();
+        var oTable = $('#data-daily').DataTable(
+            {
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('table.daily')}}",
+            columns: [
+                        {data: 'DT_RowIndex', name: 'q'},
+                        {data: 'q', name: 'q'},
+                        {data: 'a', name: 'a'},
+                        {data: 'convert_h', name: 'convert_h'}
+                    ]
+        }
+        );
+
+
+        $("#refresh").click(function(){
+            $('#data-daily').DataTable().draw(true);
+        });
     });
 </script>
 @endpush

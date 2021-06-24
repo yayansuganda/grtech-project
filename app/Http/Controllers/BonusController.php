@@ -4,20 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Yajra\DataTables\Facades\DataTables;
 
 class BonusController extends Controller
 {
     public function index() {
-        $test = Http::get('https://zenquotes.io/api/quotes');
-
-        $result = json_decode($test);
-        return view('daily.view',compact('result'));
+        return view('daily.view');
     }
 
-    // public function dateDa() {
-    //     $test = Http::get('https://zenquotes.io/api/quotes');
 
-    //     $result = json_decode($test);
-    //     return view('daily.view',compact('result'));
-    // }
+    public function datatableDaily(Request $request)
+    {
+        $test = Http::get('https://zenquotes.io/api/quotes');
+        $model = json_decode($test);
+
+        return DataTables::of($model)
+            ->addColumn('convert_h',function($model){
+                    return "$model->h";
+            })
+            ->addIndexColumn()
+            ->rawColumns(['convert_h'])
+            ->make(true);
+    }
 }

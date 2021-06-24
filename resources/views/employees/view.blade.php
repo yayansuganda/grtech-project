@@ -94,7 +94,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="{{ route('employees.create') }}" class="btn bg-gradient-primary modal-show" title="Add New Employees" data-toggle="modal">
+                <a href="{{ route('employe.create') }}" class="btn bg-gradient-primary modal-show" title="Add New Employees" data-toggle="modal">
                   Add New Employees
                 </a>
               </div>
@@ -130,7 +130,7 @@
             processing: true,
             serverSide: true,
             ajax : {
-                      url : "{{ route('table.employees')}}",
+                      url : "{{ route('table.employe')}}",
                       data : function(d){
                         d.first_name = $("#first_name_search").val();
                         d.last_name = $("#last_name_search").val();

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Companies;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
-class CompaniesController extends Controller
+class CompaniController extends Controller
 {
     public function index()
     {
@@ -26,8 +27,8 @@ class CompaniesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            // 'email'=>'required|email',
-            // 'website' => 'required|url'
+            'email'=>'required|email',
+            'website' => 'required|url'
         ]);
 
         $path_logo = $request->file('logo');
@@ -38,8 +39,8 @@ class CompaniesController extends Controller
                 ];
 
         if ($path_logo) {
-            $name_file_logo = $path_logo->getClientOriginalName();
-            Storage::putFileAs('public/', $path_logo, $name_file_logo);
+            $name_file_logo = Carbon::now()->timestamp.'_'.$path_logo->getClientOriginalName();
+            Storage::putFileAs('public/',$path_logo, $name_file_logo);
             $data['logo'] = $name_file_logo;
         }
 
@@ -70,12 +71,16 @@ class CompaniesController extends Controller
     }
 
 
-    public function datatableCompanies(Request $request)
+    public function datatableCompani(Request $request)
     {
         $model =  Companies::select('*')->get();
         return DataTables::of($model)
             ->addColumn('logo_company',function($model){
-                return '<img src="'.Storage::url('public/'. (empty($model->logo) ? 'no_image_upload.png' : $model->logo)).'" alt="Product Image" class="img-size-50">';
+                if (!empty($model->logo)) {
+                    return '<img src="'.Storage::url('public/'.$model->logo).'" alt="Product Image" class="img-size-50">';
+                } else {
+                    return '';
+                }
             })
             ->addColumn('website_company',function($model){
                 if (!empty($model->website)) {
@@ -87,9 +92,9 @@ class CompaniesController extends Controller
             ->addColumn('action', function ($model) {
                 return view('layouts.button._button', [
                     'model' => $model->name,
-                    'title_edit' => "Data Companies",
-                    'url_edit' => route('companies.edit', $model->id),
-                    'url_destroy' => route('companies.destroy', $model->id)
+                    'title_edit' => "Data Compani",
+                    'url_edit' => route('compani.edit', $model->id),
+                    'url_destroy' => route('compani.destroy', $model->id)
                 ]);
             })
             ->addIndexColumn()
