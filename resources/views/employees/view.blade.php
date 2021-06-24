@@ -137,7 +137,6 @@
                         d.email = $("#email_search").val();
                         d.date_range = $("#date_range").val();
                         d.company = $( "select#company_id_search option:checked" ).val();
-
                       }
                     },
             columns: [
