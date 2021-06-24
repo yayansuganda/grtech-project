@@ -63,18 +63,17 @@
 <script src="{{url('/')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{url('/')}}/dist/js/adminlte.min.js"></script>
-<script src="{{ asset('js/sweetalert2/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('packages_crud/sweetalert2.min.js') }}"></script>
 
 <script>
     @if(Session::has('login_error'))
-        swal({
+        Swal.fire({
             title: 'Failed Login',
             text: 'Wrong Email & Password',
-            type: 'warning',
-            showCancelButton: false,
+            icon: 'warning',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'yes'
+            confirmButtonText: 'Yes'
         })
     @endif
 </script>

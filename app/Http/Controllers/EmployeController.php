@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
-class EmployessController extends Controller
+class EmployeController extends Controller
 {
     public function index()
     {
@@ -33,7 +33,9 @@ class EmployessController extends Controller
         $this->validate($request, [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            // 'email'=>'required|email',
+            'company_id' => 'required|string|max:255',
+            'phone' => 'required|numeric',
+            'email'=>'required|email',
 
         ]);
 
@@ -76,20 +78,20 @@ class EmployessController extends Controller
     }
 
 
-    public function datatableEmployees(Request $request)
+    public function datatableEmploye(Request $request)
     {
         $model =  Employees::select('employees.*')->join('companies','companies.id','=','employees.company_id')->get();
 
         return DataTables::of($model)
             ->addColumn('company_detail',function($model){
-                return '<a href="'.route('companies.show',$model->company_id).'" title="Detail Companies" class ="btn-show">'.$model->getCompanies->name.'</a>';
+                return '<a href="'.route('compani.show',$model->company_id).'" title="Detail Companies" class ="btn-show">'.$model->getCompanies->name.'</a>';
             })
             ->addColumn('action', function ($model) {
                 return view('layouts.button._button', [
                     'model' => $model->full_name,
-                    'title_edit' => "Data Employees",
-                    'url_edit' => route('employees.edit', $model->id),
-                    'url_destroy' => route('employees.destroy', $model->id)
+                    'title_edit' => "Data Employe",
+                    'url_edit' => route('employe.edit', $model->id),
+                    'url_destroy' => route('employe.destroy', $model->id)
                 ]);
             })
             ->addIndexColumn()

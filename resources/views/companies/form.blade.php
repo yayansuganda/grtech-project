@@ -1,5 +1,5 @@
 {!! Form::model($model,  [
-    'route'=>'companies.store',
+    'route'=>'compani.store',
     'method'=>'POST'
 ]) !!}
 
@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="name">Name</label>
-                {!! Form::text('name',null, ['class' => 'form-control', 'id'=>'name']) !!}
+                {!! Form::text('name',null, ['class' => 'form-control', 'id'=>'name','required']) !!}
             </div>
         </div>
 

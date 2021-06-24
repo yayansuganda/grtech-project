@@ -22,7 +22,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="{{ route('employees.create') }}" class="btn bg-gradient-primary modal-show" title="Add New Employees" data-toggle="modal">
+                <a href="{{ route('employe.create') }}" class="btn bg-gradient-primary modal-show" title="Add New Employees" data-toggle="modal">
                   Add New Employees
                 </a>
               </div>
@@ -57,7 +57,21 @@
         var oTable = $('#data_table').DataTable({
             processing: true,
             serverSide: true,
+<<<<<<< Updated upstream
             ajax: "{{ route('table.employees')}}",
+=======
+            ajax : {
+                      url : "{{ route('table.employe')}}",
+                      data : function(d){
+                        d.first_name = $("#first_name_search").val();
+                        d.last_name = $("#last_name_search").val();
+                        d.email = $("#email_search").val();
+                        d.date_range = $("#date_range").val();
+                        d.company = $( "select#company_id_search option:checked" ).val();
+
+                      }
+                    },
+>>>>>>> Stashed changes
             columns: [
                         {data: 'DT_RowIndex', name: 'id'},
                         {data: 'full_name', name: 'full_name'},

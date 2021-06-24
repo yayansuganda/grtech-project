@@ -35,7 +35,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{url('companies')}}" class="brand-link">
+    <a href="{{url('compani')}}" class="brand-link">
       <img src="{{url('/')}}/image/grtech.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Admin</span>
     </a>
@@ -58,7 +58,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item">
-            <a href="{{ url('companies') }}" class="nav-link  {{ Request::is('companies') ? 'active' : '' }}">
+            <a href="{{ url('compani') }}" class="nav-link  {{ Request::is('compani') ? 'active' : '' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Companies
@@ -67,7 +67,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{ url('employees') }}" class="nav-link  {{ Request::is('employees') ? 'active' : '' }}">
+            <a href="{{ url('employe') }}" class="nav-link  {{ Request::is('employe') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Employees

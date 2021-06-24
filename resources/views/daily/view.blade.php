@@ -5,11 +5,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Companies</h1>
+            <h1>Daily</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Companies</a></li>
+              <li class="breadcrumb-item"><a href="#">Daily</a></li>
             </ol>
           </div>
         </div>
@@ -22,21 +22,16 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="{{ route('compani.create') }}" class="btn bg-gradient-primary modal-show" title="Add New Companies" data-toggle="modal">
-                  Add New Companies
-                </a>
+                    <button type="submit" id="refresh" class="btn btn-outline-info ">Refresh Daily</button>
               </div>
-
               <div class="card-body">
-                <table id="data_table" class="table table-bordered table-hover">
+                <table id="data-daily" class="table table-bordered table-hover">
                   <thead>
                     <tr>
                         <th>No</th>
-                        <th>Name Companies</th>
-                        <th>Email</th>
-                        <th>Logo</th>
-                        <th>Website</th>
-                        <th>Action</th>
+                        <th>Q</th>
+                        <th>A</th>
+                        <th>H</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -54,18 +49,23 @@
 @push('scripts')
   <script>
     $(document).ready(function(){
-        var oTable = $('#data_table').DataTable({
+        var oTable = $('#data-daily').DataTable(
+            {
             processing: true,
             serverSide: true,
-            ajax: "{{ route('table.compani')}}",
+            ajax: "{{ route('table.daily')}}",
             columns: [
-                        {data: 'DT_RowIndex', name: 'id'},
-                        {data: 'name', name: 'name'},
-                        {data: 'email', name: 'email'},
-                        {data: 'logo_company', name: 'logo_company'},
-                        {data: 'website_company', name: 'website_company'},
-                        {data: 'action', name: 'action', orderable: false}
+                        {data: 'DT_RowIndex', name: 'q'},
+                        {data: 'q', name: 'q'},
+                        {data: 'a', name: 'a'},
+                        {data: 'convert_h', name: 'convert_h'}
                     ]
+        }
+        );
+
+
+        $("#refresh").click(function(){
+            $('#data-daily').DataTable().draw(true);
         });
     });
 </script>
