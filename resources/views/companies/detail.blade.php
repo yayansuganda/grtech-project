@@ -20,6 +20,6 @@
     <tr>
         <td>Logo</td>
         <td>:</td>
-        <td><img src="{{  url('/').Storage::url('public/'. $model->logo) }}" alt="Product Image" class="img-size-50"></td>
+        <td>{!! empty($model->logo) ? '' : '<img src="'.url('/').Storage::url('public/'. $model->logo).'" alt="Product Image" class="img-size-50">' !!}</td>
     </tr>
 </table>

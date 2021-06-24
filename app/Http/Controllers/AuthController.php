@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function postlogin(Request $request){
         if (Auth::attempt($request->only('email', 'password'))) {
             if(Auth::user()->role == 'admin'){
-                return redirect()->intended('/companies');
+                return redirect()->intended('/compani');
             }
         }
         $request->session()->flush();

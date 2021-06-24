@@ -1,5 +1,5 @@
 {!! Form::model($model,  [
-    'route'=>'employees.store',
+    'route'=>'employe.store',
     'method'=> 'POST',
     'files' => true
 ]) !!}
@@ -37,7 +37,7 @@
          <div class="col-md-6">
             <div class="form-group">
                 <label for="exampleInputEmail1">Phone</label>
-                {!! Form::text('phone',null, ['class' => 'form-control', 'id'=>'phone']) !!}
+                {!! Form::number('phone',null, ['class' => 'form-control', 'id'=>'phone']) !!}
             </div>
         </div>
     </div>
