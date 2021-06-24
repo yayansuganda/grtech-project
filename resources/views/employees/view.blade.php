@@ -57,9 +57,6 @@
         var oTable = $('#data_table').DataTable({
             processing: true,
             serverSide: true,
-<<<<<<< Updated upstream
-            ajax: "{{ route('table.employees')}}",
-=======
             ajax : {
                       url : "{{ route('table.employe')}}",
                       data : function(d){
@@ -71,7 +68,6 @@
 
                       }
                     },
->>>>>>> Stashed changes
             columns: [
                         {data: 'DT_RowIndex', name: 'id'},
                         {data: 'full_name', name: 'full_name'},
